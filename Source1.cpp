@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -9,16 +9,11 @@
 
 using namespace std;
 
-// Estructura para cada jugador
-struct Jugador {
-    vector<string> mano;
-    vector<string> cartasJugadas;
-    int puntos = 0;
-    int pudines = 0;
-};
+// ================== CONSTANTES Y ESTRUCTURAS ==================
 
-// Mazo de cartas
-vector<string> mazoBase = {
+// Mazos disponibles (puedes añadir más fácilmente)
+const map<string, vector<string>> MAZOS = {
+    {"Clásico", {
     "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura",
     "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi",
     "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza",
@@ -31,16 +26,88 @@ vector<string> mazoBase = {
     "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin",
     "wasabi", "wasabi", "wasabi", "wasabi", "wasabi", "wasabi",
     "palillos", "palillos", "palillos", "palillos"
+    }}
 };
 
-// Función para barajar el mazo
+struct Jugador {
+    vector<string> mano;
+    vector<string> cartasJugadas;
+    int puntos = 0;
+    int pudines = 0;
+};
+
+// ================== FUNCIONES AUXILIARES ==================
+
+void mostrarMazos() {
+    cout << "\n🎴 Mazos disponibles:\n";
+    int i = 1;
+
+    // Versión compatible (sin desestructuración)
+    for (const auto& par : MAZOS) {
+        const string& nombre = par.first;
+        const vector<string>& cartas = par.second;
+
+        cout << i++ << ". " << nombre << " (" << cartas.size() << " cartas)\n";
+    }
+}
+
+const vector<string>& elegirMazo() {
+    mostrarMazos();
+    int eleccion;
+
+    while (true) {
+        cout << "👉 Elige un mazo (1-" << MAZOS.size() << "): ";
+        cin >> eleccion;
+
+        if (cin.fail() || eleccion < 1 || eleccion > MAZOS.size()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "❌ Opción inválida. Intenta nuevamente.\n";
+        }
+        else {
+            break;
+        }
+    }
+
+    auto it = MAZOS.begin();
+    advance(it, eleccion - 1);
+    cout << "✔️ Mazo seleccionado: " << it->first << "\n\n";
+    return it->second;
+}
+
 void barajar(vector<string>& mazo) {
     random_device rd;
     mt19937 g(rd());
     shuffle(mazo.begin(), mazo.end(), g);
 }
 
-// Función para obtener el número de cartas por jugador
+void mostrarMano(const vector<string>& mano, int jugadorId) {
+    cout << "\n📋 Mano del Jugador " << jugadorId + 1 << ":\n";
+    for (size_t i = 0; i < mano.size(); ++i) {
+        cout << i + 1 << ": " << mano[i] << "\n";
+    }
+}
+
+int seleccionarCarta(const vector<string>& mano) {
+    int eleccion;
+
+    while (true) {
+        cout << "👉 Elige una carta (1-" << mano.size() << "): ";
+        cin >> eleccion;
+
+        if (cin.fail() || eleccion < 1 || eleccion > static_cast<int>(mano.size())) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "❌ Selección inválida. Intenta nuevamente.\n";
+        }
+        else {
+            break;
+        }
+    }
+
+    return eleccion - 1;
+}
+
 int obtenerCartasPorJugador(int num_jugadores) {
     switch (num_jugadores) {
     case 2: return 10;
@@ -51,27 +118,16 @@ int obtenerCartasPorJugador(int num_jugadores) {
     }
 }
 
-// Función para mostrar la mano de un jugador
-void mostrarMano(const vector<string>& mano, int jugadorId) {
-    cout << "\n📋 Mano del Jugador " << jugadorId + 1 << ":" << endl;
-    for (int i = 0; i < mano.size(); ++i) {
-        cout << i + 1 << ": " << mano[i] << endl;
+int contarMaki(const vector<string>& cartas) {
+    int total = 0;
+    for (const auto& carta : cartas) {
+        if (carta == "maki(1)") total += 1;
+        else if (carta == "maki(2)") total += 2;
+        else if (carta == "maki(3)") total += 3;
     }
+    return total;
 }
 
-// Función para seleccionar una carta (con validación)
-int seleccionarCarta(const vector<string>& mano) {
-    int eleccion;
-    cout << "👉 Elige una carta (1-" << mano.size() << "): ";
-    while (!(cin >> eleccion) || eleccion < 1 || eleccion > mano.size()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "❌ Inválido. Elige de nuevo (1-" << mano.size() << "): ";
-    }
-    return eleccion - 1; // Convertir a índice base 0
-}
-
-// Función para calcular puntos de gyoza
 int puntosGyoza(int cantidad) {
     if (cantidad == 1) return 1;
     if (cantidad == 2) return 3;
@@ -81,33 +137,50 @@ int puntosGyoza(int cantidad) {
     return 0;
 }
 
-// Función principal
+// ================== FUNCIÓN PRINCIPAL ==================
+
 int main() {
-    int jugadores_count, rondas;
+    cout << "🎌 ¡Bienvenido a Sushi Go! 🎌\n";
 
     // Configuración inicial
-    cout << "🎌 ¡Bienvenido a Sushi Go! 🎌" << endl;
-    cout << "Ingrese el número de jugadores (2-5): ";
-    cin >> jugadores_count;
+    const vector<string>& mazoBase = elegirMazo();
+
+    int jugadores_count;
+    do {
+        cout << "\nIngrese el número de jugadores (2-5): ";
+        cin >> jugadores_count;
+
+        if (cin.fail() || jugadores_count < 2 || jugadores_count > 5) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "❌ Número de jugadores inválido.\n";
+        }
+    } while (jugadores_count < 2 || jugadores_count > 5);
 
     int cartas_por_jugador = obtenerCartasPorJugador(jugadores_count);
-    if (cartas_por_jugador == 0) {
-        cout << "❌ Número de jugadores inválido." << endl;
-        return 1;
-    }
 
-    cout << "Ingrese el número de rondas a jugar: ";
-    cin >> rondas;
+    int rondas;
+    do {
+        cout << "Ingrese el número de rondas a jugar (1-5): ";
+        cin >> rondas;
+
+        if (cin.fail() || rondas < 1 || rondas > 5) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "❌ Número de rondas inválido.\n";
+        }
+    } while (rondas < 1 || rondas > 5);
 
     vector<Jugador> jugadores(jugadores_count);
 
-    // Bucle principal de rondas
+    // Bucle principal del juego
     for (int ronda = 1; ronda <= rondas; ++ronda) {
-        cout << "\n🌀 Ronda " << ronda << endl;
+        cout << "\n🌀 Ronda " << ronda << "\n";
 
-        // Barajar y repartir cartas
+        // Preparar mazo y repartir cartas
         vector<string> mazo = mazoBase;
         barajar(mazo);
+
         for (auto& jugador : jugadores) {
             jugador.mano.clear();
             jugador.cartasJugadas.clear();
@@ -120,11 +193,10 @@ int main() {
         // Bucle de turnos
         for (int turno = 0; turno < cartas_por_jugador; ++turno) {
             for (int j = 0; j < jugadores_count; ++j) {
-                cout << "\n🎮 Turno del Jugador " << j + 1 << endl;
+                cout << "\n🎮 Turno del Jugador " << j + 1 << "\n";
                 mostrarMano(jugadores[j].mano, j);
                 int cartaElegida = seleccionarCarta(jugadores[j].mano);
 
-                // Mover carta de "mano" a "cartasJugadas"
                 jugadores[j].cartasJugadas.push_back(jugadores[j].mano[cartaElegida]);
                 jugadores[j].mano.erase(jugadores[j].mano.begin() + cartaElegida);
             }
@@ -141,6 +213,7 @@ int main() {
 
         // Calcular puntuación de la ronda
         vector<int> makis(jugadores_count, 0);
+
         for (int j = 0; j < jugadores_count; ++j) {
             map<string, int> contador;
             for (const auto& carta : jugadores[j].cartasJugadas) {
@@ -162,38 +235,43 @@ int main() {
 
         // Puntos por maki
         int max_maki = *max_element(makis.begin(), makis.end());
-        int segundo_maki = 0;
-        for (int val : makis) {
-            if (val < max_maki && val > segundo_maki) segundo_maki = val;
-        }
-        for (int j = 0; j < jugadores_count; ++j) {
-            if (makis[j] == max_maki) jugadores[j].puntos += 6;
-            else if (makis[j] == segundo_maki) jugadores[j].puntos += 3;
+        if (max_maki > 0) {
+            int segundo_maki = 0;
+            for (int val : makis) {
+                if (val < max_maki && val > segundo_maki) segundo_maki = val;
+            }
+
+            for (int j = 0; j < jugadores_count; ++j) {
+                if (makis[j] == max_maki) jugadores[j].puntos += 6;
+                else if (makis[j] == segundo_maki && segundo_maki > 0) jugadores[j].puntos += 3;
+            }
         }
 
         // Mostrar puntuación parcial
-        cout << "\n📊 Puntuación después de la ronda " << ronda << ":" << endl;
+        cout << "\n📊 Puntuación después de la ronda " << ronda << ":\n";
         for (int j = 0; j < jugadores_count; ++j) {
-            cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos" << endl;
+            cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos\n";
         }
     }
 
     // Puntos por pudín al final del juego
     vector<int> pudines(jugadores_count);
-    for (int j = 0; j < jugadores_count; ++j) pudines[j] = jugadores[j].pudines;
+    for (int j = 0; j < jugadores_count; ++j) {
+        pudines[j] = jugadores[j].pudines;
+    }
 
     int max_pudin = *max_element(pudines.begin(), pudines.end());
     int min_pudin = *min_element(pudines.begin(), pudines.end());
 
     for (int j = 0; j < jugadores_count; ++j) {
-        if (pudines[j] == max_pudin) jugadores[j].puntos += 6;
-        if (pudines[j] == min_pudin) jugadores[j].puntos -= 6;
+        if (pudines[j] == max_pudin && max_pudin > 0) jugadores[j].puntos += 6;
+        if (pudines[j] == min_pudin && min_pudin > 0) jugadores[j].puntos -= 6;
     }
 
     // Mostrar puntuación final
-    cout << "\n🏁 Puntuación final:" << endl;
+    cout << "\n🏁 Puntuación final:\n";
     for (int j = 0; j < jugadores_count; ++j) {
-        cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos (Pudines: " << jugadores[j].pudines << ")" << endl;
+        cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos (Pudines: " << jugadores[j].pudines << ")\n";
     }
 
     return 0;
