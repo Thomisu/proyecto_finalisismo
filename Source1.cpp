@@ -11,7 +11,6 @@ using namespace std;
 
 // ================== CONSTANTES Y ESTRUCTURAS ==================
 
-// Mazos disponibles (puedes añadir más fácilmente)
 const map<string, vector<string>> MAZOS = {
     {"Clásico", {
     "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura",
@@ -26,6 +25,21 @@ const map<string, vector<string>> MAZOS = {
     "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin",
     "wasabi", "wasabi", "wasabi", "wasabi", "wasabi", "wasabi",
     "palillos", "palillos", "palillos", "palillos"
+    }},
+    {"Sushi Deluxe", {
+        "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura",
+        "tofu", "tofu", "tofu", "tofu", "tofu",
+        "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza",
+        "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon",
+        "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar",
+        "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla",
+        "temaki(1)", "temaki(1)", "temaki(1)", "temaki(1)", "temaki(1)", "temaki(1)",
+        "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)",
+        "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)",
+        "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde"
+        "wasabi", "wasabi", "wasabi", "wasabi", "wasabi", "wasabi",
+        "palillos", "palillos", "palillos", "palillos",
+        "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde"
     }}
 };
 
@@ -34,6 +48,7 @@ struct Jugador {
     vector<string> cartasJugadas;
     int puntos = 0;
     int pudines = 0;
+    int helados_te_verde = 0;
 };
 
 // ================== FUNCIONES AUXILIARES ==================
@@ -41,13 +56,8 @@ struct Jugador {
 void mostrarMazos() {
     cout << "\n🎴 Mazos disponibles:\n";
     int i = 1;
-
-    // Versión compatible (sin desestructuración)
     for (const auto& par : MAZOS) {
-        const string& nombre = par.first;
-        const vector<string>& cartas = par.second;
-
-        cout << i++ << ". " << nombre << " (" << cartas.size() << " cartas)\n";
+        cout << i++ << ". " << par.first << " (" << par.second.size() << " cartas)\n";
     }
 }
 
@@ -59,7 +69,7 @@ const vector<string>& elegirMazo() {
         cout << "👉 Elige un mazo (1-" << MAZOS.size() << "): ";
         cin >> eleccion;
 
-        if (cin.fail() || eleccion < 1 || eleccion > MAZOS.size()) {
+        if (cin.fail() || eleccion < 1 || eleccion > static_cast<int>(MAZOS.size())) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "❌ Opción inválida. Intenta nuevamente.\n";
@@ -126,6 +136,22 @@ int contarMaki(const vector<string>& cartas) {
         else if (carta == "maki(3)") total += 3;
     }
     return total;
+}
+
+int contarTemaki(const vector<string>& cartas) {
+    int total = 0;
+    for (const auto& carta : cartas) {
+        if (carta == "temaki(1)") total += 1;
+        else if (carta == "temaki(2)") total += 2;
+        else if (carta == "temaki(3)") total += 3;
+    }
+    return total;
+}
+
+int puntostofu(int cantidad) {
+    if (cantidad == 1) return 1;
+    if (cantidad == 2) return 6;
+    return 0;
 }
 
 int puntosGyoza(int cantidad) {
@@ -211,26 +237,44 @@ int main() {
             }
         }
 
-        // Calcular puntuación de la ronda
+        // Calcular puntuación de la ronda (sin contar pudines ni helados)
         vector<int> makis(jugadores_count, 0);
+        vector<int> temakis(jugadores_count, 0);
 
         for (int j = 0; j < jugadores_count; ++j) {
             map<string, int> contador;
             for (const auto& carta : jugadores[j].cartasJugadas) {
                 contador[carta]++;
-                if (carta.find("maki") != string::npos) {
-                    makis[j] += (carta == "maki(1)") ? 1 : (carta == "maki(2)") ? 2 : 3;
-                }
+                // Solo contamos, no sumamos puntos aún
                 if (carta == "pudin") jugadores[j].pudines++;
+                if (carta == "helado de te verde") jugadores[j].helados_te_verde++;
             }
 
-            // Sumar puntos
+            makis[j] = contarMaki(jugadores[j].cartasJugadas);
+            temakis[j] = contarTemaki(jugadores[j].cartasJugadas);
+
+            // Sumar puntos (excepto pudines y helados)
             jugadores[j].puntos += (contador["tempura"] / 2) * 5;
             jugadores[j].puntos += (contador["sashimi"] / 3) * 10;
             jugadores[j].puntos += puntosGyoza(contador["gyoza"]);
+            jugadores[j].puntos += puntostofu(contador["tofu"]);
             jugadores[j].puntos += contador["nigiri de salmon"] * 2;
             jugadores[j].puntos += contador["nigiri de calamar"] * 3;
             jugadores[j].puntos += contador["nigiri de tortilla"];
+        }
+
+        // Puntos por temaki
+        int max_temaki = *max_element(temakis.begin(), temakis.end());
+        if (max_temaki > 0) {
+            int segundo_temaki = 0;
+            for (int val : temakis) {
+                if (val < max_temaki && val > segundo_temaki) segundo_temaki = val;
+            }
+
+            for (int j = 0; j < jugadores_count; ++j) {
+                if (temakis[j] == max_temaki) jugadores[j].puntos += 4;
+                else if (temakis[j] == segundo_temaki && segundo_temaki > 0) jugadores[j].puntos -= 4;
+            }
         }
 
         // Puntos por maki
@@ -247,14 +291,16 @@ int main() {
             }
         }
 
-        // Mostrar puntuación parcial
-        cout << "\n📊 Puntuación después de la ronda " << ronda << ":\n";
+        // Mostrar puntuación parcial (sin pudines ni helados)
+        cout << "\n📊 Puntuación después de la ronda " << ronda << " (sin contar pudines/helados):\n";
         for (int j = 0; j < jugadores_count; ++j) {
             cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos\n";
+            cout << "   - Pudines acumulados: " << jugadores[j].pudines << "\n";
+            cout << "   - Helados acumulados: " << jugadores[j].helados_te_verde << "\n";
         }
     }
 
-    // Puntos por pudín al final del juego
+    // Puntos por pudín al final del juego (con penalización)
     vector<int> pudines(jugadores_count);
     for (int j = 0; j < jugadores_count; ++j) {
         pudines[j] = jugadores[j].pudines;
@@ -268,10 +314,23 @@ int main() {
         if (pudines[j] == min_pudin && min_pudin > 0) jugadores[j].puntos -= 6;
     }
 
+    // Puntos por helado de té verde al final del juego (12 puntos por cada 4 cartas)
+    for (int j = 0; j < jugadores_count; ++j) {
+        jugadores[j].puntos += (jugadores[j].helados_te_verde / 4) * 12;
+    }
+
     // Mostrar puntuación final
     cout << "\n🏁 Puntuación final:\n";
     for (int j = 0; j < jugadores_count; ++j) {
-        cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos (Pudines: " << jugadores[j].pudines << ")\n";
+        cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos\n";
+        cout << "   - Pudines: " << jugadores[j].pudines << " (";
+        if (jugadores[j].pudines == max_pudin && max_pudin > 0) cout << "+6";
+        else if (jugadores[j].pudines == min_pudin && min_pudin > 0) cout << "-6";
+        else cout << "0";
+        cout << " puntos)\n";
+
+        cout << "   - Helados de té verde: " << jugadores[j].helados_te_verde
+            << " (+" << (jugadores[j].helados_te_verde / 4) * 12 << " puntos)\n";
     }
 
     return 0;
