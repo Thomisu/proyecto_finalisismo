@@ -13,33 +13,46 @@ using namespace std;
 
 const map<string, vector<string>> MAZOS = {
     {"Clásico", {
-    "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura",
-    "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi", "sashimi",
-    "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza",
-    "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon",
-    "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar",
-    "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla",
-    "maki(1)", "maki(1)", "maki(1)", "maki(1)", "maki(1)", "maki(1)",
-    "maki(2)", "maki(2)", "maki(2)", "maki(2)", "maki(2)", "maki(2)", "maki(2)", "maki(2)",
-    "maki(3)", "maki(3)", "maki(3)", "maki(3)", "maki(3)", "maki(3)", "maki(3)", "maki(3)", "maki(3)", "maki(3)", "maki(3)", "maki(3)",
-    "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin", "pudin",
-    "wasabi", "wasabi", "wasabi", "wasabi", "wasabi", "wasabi",
-    "palillos", "palillos", "palillos", "palillos"
+    "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron",
+    "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada",
+    "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas",
+    "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense",
+    "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena",
+    "arepa", "arepa", "arepa", "arepa", "arepa",
+    "arroz guerrillero(1)", "arroz guerrillero(1)", "arroz guerrillero(1)", "arroz guerrillero(1)", "arroz guerrillero(1)", "arroz guerrillero(1)",
+    "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)",
+    "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)",
+    "natilla", "natilla", "natilla", "natilla", "natilla", "natilla", "natilla", "natilla", "natilla", "natilla",
+    "mantequilla", "mantequilla", "mantequilla", "mantequilla", "mantequilla", "mantequilla",
+    "tenedor", "tenedor", "tenedor", "tenedor"
     }},
     {"Sushi Deluxe", {
-        "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura", "tempura",
-        "tofu", "tofu", "tofu", "tofu", "tofu",
-        "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza", "gyoza",
-        "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon", "nigiri de salmon",
-        "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar", "nigiri de calamar",
-        "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla", "nigiri de tortilla",
-        "temaki(1)", "temaki(1)", "temaki(1)", "temaki(1)", "temaki(1)", "temaki(1)",
-        "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)", "temaki(2)",
-        "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)", "temaki(3)",
-        "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde"
-        "wasabi", "wasabi", "wasabi", "wasabi", "wasabi", "wasabi",
-        "palillos", "palillos", "palillos", "palillos",
-        "helado de te verde", "helado de te verde", "helado de te verde", "helado de te verde"
+        "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron",
+        "yuca", "yuca", "yuca", "yuca", "yuca", "yuca", "yuca", "yuca", "yuca", "yuca","yuca", "yuca", "yuca", "yuca", "yuca",
+        "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas", "empanadas",
+        "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense",
+        "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena",
+        "arepa", "arepa", "arepa", "arepa", "arepa",
+        "arroz con pollo(1)", "arroz con pollo(1)", "arroz con pollo(1)", "arroz con pollo(1)", "arroz con pollo(1)", "arroz con pollo(1)",
+        "arroz con pollo(2)", "arroz con pollo(2)", "arroz con pollo(2)", "arroz con pollo(2)", "arroz con pollo(2)", "arroz con pollo(2)", "arroz con pollo(2)", "arroz con pollo(2)",
+        "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)", "arroz con pollo(3)",
+        "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta"
+        "mantequilla", "mantequilla", "mantequilla", "mantequilla", "mantequilla", "mantequilla",
+        "tenedor", "tenedor", "tenedor", "tenedor",
+    }},
+    {"mi primer aperitivo",{
+        "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron", "chicharron",
+        "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada", "picada",
+        "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome", "consome",
+        "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense", "arepa boyacense",
+        "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena", "arepa rellena",
+        "arepa", "arepa", "arepa", "arepa", "arepa",
+        "arroz guerrillero(1)", "arroz guerrillero(1)", "arroz guerrillero(1)", "arroz guerrillero(1)", "arroz guerrillero(1)", "arroz guerrillero(1)",
+        "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)", "arroz guerrillero(2)",
+        "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)", "arroz guerrillero(3)",
+        "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta"
+        "mantequilla", "mantequilla", "mantequilla", "mantequilla", "mantequilla", "mantequilla",
+        "ensalada de fruta", "ensalada de fruta", "ensalada de fruta", "ensalada de fruta",
     }}
 };
 
@@ -47,8 +60,8 @@ struct Jugador {
     vector<string> mano;
     vector<string> cartasJugadas;
     int puntos = 0;
-    int pudines = 0;
-    int helados_te_verde = 0;
+    int natillas = 0;
+    int ensalada_fruta = 0;
 };
 
 // ================== FUNCIONES AUXILIARES ==================
@@ -128,33 +141,79 @@ int obtenerCartasPorJugador(int num_jugadores) {
     }
 }
 
-int contarMaki(const vector<string>& cartas) {
+bool alguienJugoconsome(const vector<Jugador>& jugadores, int jugadorActual) {
+    for (size_t i = 0; i < jugadores.size(); ++i) {
+        if (i != static_cast<size_t>(jugadorActual)) { // No comparar con sí mismo
+            for (const auto& carta : jugadores[i].cartasJugadas) {
+                if (carta == "consome") {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+// Modificar la función seleccionarCarta para esta carta especial
+int seleccionarCartaEspecial(const vector<string>& mano, const vector<Jugador>& jugadores, int jugadorId) {
+    for (size_t i = 0; i < mano.size(); ++i) {
+        if (mano[i] == "consome") {
+            if (alguienJugoconsome(jugadores, jugadorId)) {
+                cout << "\n⚠️ ¡Otro jugador ya jugó consome! Esta carta será descartada.\n";
+                return i; // Devuelve el índice de la consome para descartarla
+            }
+        }
+    }
+    return seleccionarCarta(mano); // Comportamiento normal para otras cartas
+}
+
+pair<string, int> obtenerTipoMasRepetido(const vector<string>& cartas) {
+    map<string, int> contador;
+
+    // Excluir la carta ensalada de fruta del conteo
+    for (const auto& carta : cartas) {
+        if (carta != "ensalada de fruta") {
+            contador[carta]++;
+        }
+    }
+
+    if (contador.empty()) return make_pair("", 0);
+
+    auto max_it = max_element(contador.begin(), contador.end(),
+        [](const pair<string, int>& a, const pair<string, int>& b) {
+            return a.second < b.second;
+        });
+
+    return *max_it;
+}
+
+int contararroz_guerrillero(const vector<string>&cartas) {
     int total = 0;
     for (const auto& carta : cartas) {
-        if (carta == "maki(1)") total += 1;
-        else if (carta == "maki(2)") total += 2;
-        else if (carta == "maki(3)") total += 3;
+        if (carta == "arroz guerrillero(1)") total += 1;
+        else if (carta == "arroz guerrillero(2)") total += 2;
+        else if (carta == "arroz guerrillero(3)") total += 3;
     }
     return total;
 }
 
-int contarTemaki(const vector<string>& cartas) {
+int contararroz_con_pollo(const vector<string>& cartas) {
     int total = 0;
     for (const auto& carta : cartas) {
-        if (carta == "temaki(1)") total += 1;
-        else if (carta == "temaki(2)") total += 2;
-        else if (carta == "temaki(3)") total += 3;
+        if (carta == "arroz con pollo(1)") total += 1;
+        else if (carta == "arroz con pollo(2)") total += 2;
+        else if (carta == "arroz con pollo(3)") total += 3;
     }
     return total;
 }
 
-int puntostofu(int cantidad) {
+int puntosyuca(int cantidad) {
     if (cantidad == 1) return 1;
     if (cantidad == 2) return 6;
     return 0;
 }
 
-int puntosGyoza(int cantidad) {
+int puntosempanadas(int cantidad) {
     if (cantidad == 1) return 1;
     if (cantidad == 2) return 3;
     if (cantidad == 3) return 6;
@@ -166,7 +225,7 @@ int puntosGyoza(int cantidad) {
 // ================== FUNCIÓN PRINCIPAL ==================
 
 int main() {
-    cout << "🎌 ¡Bienvenido a Sushi Go! 🎌\n";
+    cout << "🎌 ¡Bienvenido a La Comelona! 🎌\n";
 
     // Configuración inicial
     const vector<string>& mazoBase = elegirMazo();
@@ -221,7 +280,7 @@ int main() {
             for (int j = 0; j < jugadores_count; ++j) {
                 cout << "\n🎮 Turno del Jugador " << j + 1 << "\n";
                 mostrarMano(jugadores[j].mano, j);
-                int cartaElegida = seleccionarCarta(jugadores[j].mano);
+                int cartaElegida = seleccionarCartaEspecial(jugadores[j].mano, jugadores, j);
 
                 jugadores[j].cartasJugadas.push_back(jugadores[j].mano[cartaElegida]);
                 jugadores[j].mano.erase(jugadores[j].mano.begin() + cartaElegida);
@@ -237,101 +296,119 @@ int main() {
             }
         }
 
-        // Calcular puntuación de la ronda (sin contar pudines ni helados)
-        vector<int> makis(jugadores_count, 0);
-        vector<int> temakis(jugadores_count, 0);
+        // Calcular puntuación de la ronda (sin contar natillas ni helados)
+        vector<int> arroz_guerrilleros(jugadores_count, 0);
+        vector<int> arroz_con_pollos(jugadores_count, 0);
 
         for (int j = 0; j < jugadores_count; ++j) {
             map<string, int> contador;
             for (const auto& carta : jugadores[j].cartasJugadas) {
                 contador[carta]++;
                 // Solo contamos, no sumamos puntos aún
-                if (carta == "pudin") jugadores[j].pudines++;
-                if (carta == "helado de te verde") jugadores[j].helados_te_verde++;
+                if (carta == "natilla") jugadores[j].natillas++;
+                if (carta == "ensalada de fruta") jugadores[j].ensalada_fruta++;
             }
 
-            makis[j] = contarMaki(jugadores[j].cartasJugadas);
-            temakis[j] = contarTemaki(jugadores[j].cartasJugadas);
+            arroz_guerrilleros[j] = contararroz_guerrillero(jugadores[j].cartasJugadas);
+            arroz_con_pollos[j] = contararroz_con_pollo(jugadores[j].cartasJugadas);
 
-            // Sumar puntos (excepto pudines y helados)
-            jugadores[j].puntos += (contador["tempura"] / 2) * 5;
-            jugadores[j].puntos += (contador["sashimi"] / 3) * 10;
-            jugadores[j].puntos += puntosGyoza(contador["gyoza"]);
-            jugadores[j].puntos += puntostofu(contador["tofu"]);
-            jugadores[j].puntos += contador["nigiri de salmon"] * 2;
-            jugadores[j].puntos += contador["nigiri de calamar"] * 3;
-            jugadores[j].puntos += contador["nigiri de tortilla"];
-        }
+            // Sumar puntos (excepto natillas y helados)
+            jugadores[j].puntos += (contador["chicharron"] / 2) * 5;
+            jugadores[j].puntos += (contador["picada"] / 3) * 10;
+            jugadores[j].puntos += puntosempanadas(contador["empanadas"]);
+            jugadores[j].puntos += puntosyuca(contador["yuca"]);
+            jugadores[j].puntos += contador["arepa boyacense"] * 2;
+            jugadores[j].puntos += contador["arepa rellena"] * 3;
+            jugadores[j].puntos += contador["arepa"];
+            if (contador["consome"] > 0 && !alguienJugoconsome(jugadores, j)) {
+                jugadores[j].puntos += 3;
 
-        // Puntos por temaki
-        int max_temaki = *max_element(temakis.begin(), temakis.end());
-        if (max_temaki > 0) {
-            int segundo_temaki = 0;
-            for (int val : temakis) {
-                if (val < max_temaki && val > segundo_temaki) segundo_temaki = val;
+                // Reemplazar el uso de enlaces estructurados con una alternativa compatible con C++11  
+                pair<string, int> tipoMasRepetido = obtenerTipoMasRepetido(jugadores[j].cartasJugadas);
+                string tipo_mas_repetido = tipoMasRepetido.first;
+                int cantidad = tipoMasRepetido.second;
+                // Sumar puntos por cartas de pollo
+                int cartasaguapanela = contador["ensalada de fruta"];
+                if (cartasaguapanela > 0 && cantidad > 0) {
+                    int puntosaguapanela = cantidad * cartasaguapanela;
+                    jugadores[j].puntos += puntosaguapanela;
+                    cout << "   + " << cartasaguapanela << " carta(s) de aguapanela: "
+                        << puntosaguapanela << " puntos (por " << cantidad << " "
+                        << tipo_mas_repetido << "(s))\n";
+                }
+
             }
 
+            // Puntos por arroz con pollo
+            int max_arroz_con_pollo = *max_element(arroz_con_pollos.begin(), arroz_con_pollos.end());
+            if (max_arroz_con_pollo > 0) {
+                int segundo_arroz_con_pollo = 0;
+                for (int val : arroz_con_pollos) {
+                    if (val < max_arroz_con_pollo && val > segundo_arroz_con_pollo) segundo_arroz_con_pollo = val;
+                }
+
+                for (int j = 0; j < jugadores_count; ++j) {
+                    if (arroz_con_pollos[j] == max_arroz_con_pollo) jugadores[j].puntos += 4;
+                    else if (arroz_con_pollos[j] == segundo_arroz_con_pollo && segundo_arroz_con_pollo > 0) jugadores[j].puntos -= 4;
+                }
+            }
+
+            // Puntos por arroz guerrillero
+            int max_arroz_guerrillero = *max_element(arroz_guerrilleros.begin(), arroz_guerrilleros.end());
+            if (max_arroz_guerrillero > 0) {
+                int segundo_arroz_guerrillero = 0;
+                for (int val : arroz_guerrilleros) {
+                    if (val < max_arroz_guerrillero && val > segundo_arroz_guerrillero) segundo_arroz_guerrillero = val;
+                }
+
+                for (int j = 0; j < jugadores_count; ++j) {
+                    if (arroz_guerrilleros[j] == max_arroz_guerrillero) jugadores[j].puntos += 6;
+                    else if (arroz_guerrilleros[j] == segundo_arroz_guerrillero && segundo_arroz_guerrillero > 0) jugadores[j].puntos += 3;
+                }
+            }
+
+            // Mostrar puntuación parcial (sin natillas ni helados)
+            cout << "\n📊 Puntuación después de la ronda " << ronda << " (sin contar natillas/helados):\n";
             for (int j = 0; j < jugadores_count; ++j) {
-                if (temakis[j] == max_temaki) jugadores[j].puntos += 4;
-                else if (temakis[j] == segundo_temaki && segundo_temaki > 0) jugadores[j].puntos -= 4;
+                cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos\n";
+                cout << "   - natillas acumulados: " << jugadores[j].natillas << "\n";
+                cout << "   - Helados acumulados: " << jugadores[j].ensalada_fruta << "\n";
             }
         }
 
-        // Puntos por maki
-        int max_maki = *max_element(makis.begin(), makis.end());
-        if (max_maki > 0) {
-            int segundo_maki = 0;
-            for (int val : makis) {
-                if (val < max_maki && val > segundo_maki) segundo_maki = val;
-            }
-
-            for (int j = 0; j < jugadores_count; ++j) {
-                if (makis[j] == max_maki) jugadores[j].puntos += 6;
-                else if (makis[j] == segundo_maki && segundo_maki > 0) jugadores[j].puntos += 3;
-            }
+        // Puntos por pudín al final del juego (con penalización)
+        vector<int> natillas(jugadores_count);
+        for (int j = 0; j < jugadores_count; ++j) {
+            natillas[j] = jugadores[j].natillas;
         }
 
-        // Mostrar puntuación parcial (sin pudines ni helados)
-        cout << "\n📊 Puntuación después de la ronda " << ronda << " (sin contar pudines/helados):\n";
+        int max_natilla = *max_element(natillas.begin(), natillas.end());
+        int min_natilla = *min_element(natillas.begin(), natillas.end());
+
+        for (int j = 0; j < jugadores_count; ++j) {
+            if (natillas[j] == max_natilla && max_natilla > 0) jugadores[j].puntos += 6;
+            if (natillas[j] == min_natilla && min_natilla > 0) jugadores[j].puntos -= 6;
+        }
+
+        // Puntos por helado de té verde al final del juego (12 puntos por cada 4 cartas)
+        for (int j = 0; j < jugadores_count; ++j) {
+            jugadores[j].puntos += (jugadores[j].ensalada_fruta / 4) * 12;
+        }
+
+        // Mostrar puntuación final
+        cout << "\n🏁 Puntuación final:\n";
         for (int j = 0; j < jugadores_count; ++j) {
             cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos\n";
-            cout << "   - Pudines acumulados: " << jugadores[j].pudines << "\n";
-            cout << "   - Helados acumulados: " << jugadores[j].helados_te_verde << "\n";
+            cout << "   - natillas: " << jugadores[j].natillas << " (";
+            if (jugadores[j].natillas == max_natilla && max_natilla > 0) cout << "+6";
+            else if (jugadores[j].natillas == min_natilla && min_natilla > 0) cout << "-6";
+            else cout << "0";
+            cout << " puntos)\n";
+
+            cout << "   - Helados de té verde: " << jugadores[j].ensalada_fruta
+                << " (+" << (jugadores[j].ensalada_fruta / 4) * 12 << " puntos)\n";
         }
+
+        return 0;
     }
-
-    // Puntos por pudín al final del juego (con penalización)
-    vector<int> pudines(jugadores_count);
-    for (int j = 0; j < jugadores_count; ++j) {
-        pudines[j] = jugadores[j].pudines;
-    }
-
-    int max_pudin = *max_element(pudines.begin(), pudines.end());
-    int min_pudin = *min_element(pudines.begin(), pudines.end());
-
-    for (int j = 0; j < jugadores_count; ++j) {
-        if (pudines[j] == max_pudin && max_pudin > 0) jugadores[j].puntos += 6;
-        if (pudines[j] == min_pudin && min_pudin > 0) jugadores[j].puntos -= 6;
-    }
-
-    // Puntos por helado de té verde al final del juego (12 puntos por cada 4 cartas)
-    for (int j = 0; j < jugadores_count; ++j) {
-        jugadores[j].puntos += (jugadores[j].helados_te_verde / 4) * 12;
-    }
-
-    // Mostrar puntuación final
-    cout << "\n🏁 Puntuación final:\n";
-    for (int j = 0; j < jugadores_count; ++j) {
-        cout << "Jugador " << j + 1 << ": " << jugadores[j].puntos << " puntos\n";
-        cout << "   - Pudines: " << jugadores[j].pudines << " (";
-        if (jugadores[j].pudines == max_pudin && max_pudin > 0) cout << "+6";
-        else if (jugadores[j].pudines == min_pudin && min_pudin > 0) cout << "-6";
-        else cout << "0";
-        cout << " puntos)\n";
-
-        cout << "   - Helados de té verde: " << jugadores[j].helados_te_verde
-            << " (+" << (jugadores[j].helados_te_verde / 4) * 12 << " puntos)\n";
-    }
-
-    return 0;
 }
